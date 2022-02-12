@@ -1,5 +1,6 @@
 from modules.auth.entities import User
 from flask_jwt_extended import create_access_token
+from modules.auth.validators import UserValidator
 
 from utils.messages import SERVER_ERROR_500
 
@@ -18,7 +19,10 @@ class AuthRepository(object):
                 return { 'error': 'Contraseña no válida' }, 401
 
             access_token = create_access_token(identity=str(user.id))
-            return { 'token': access_token }, 200
+            return { 
+                'user': UserValidator.from_orm(user).dict(), 
+                'access_token': access_token 
+            }, 200
 
         except Exception as e:
             return { 'msg': SERVER_ERROR_500 }, 500

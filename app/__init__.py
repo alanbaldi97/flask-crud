@@ -5,6 +5,7 @@ from database import db
 from config import Config
 from config.extensions import (jwt, bcrypt)
 from datetime import datetime, timezone, timedelta
+from flask_cors import CORS
 
 from flask_jwt_extended import get_jwt, create_access_token, get_jwt_identity, set_access_cookies
 
@@ -40,6 +41,7 @@ def register_entities(app, db):
 def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
+    CORS(app)
     
     db.init_app(app)
     jwt.init_app(app)
