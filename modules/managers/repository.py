@@ -109,10 +109,10 @@ class ManagerRepository(object):
                 os.remove(img_path)
 
 
-            return { 'msg': ROW_DELETED },  200
+            return { 'success': True, 'msg': ROW_DELETED },  200
 
         except Exception as e:
-            return { 'msg': ROW_NOT_DELETED }, 400
+            return { 'success': False,'msg': ROW_NOT_DELETED }, 400
 
     
     def get_by_id(self, id, like_object = False):
