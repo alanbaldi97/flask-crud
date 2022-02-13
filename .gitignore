@@ -1,1 +1,6 @@
 assets/
+
+static/uploads/
+
+
+__pycache__/

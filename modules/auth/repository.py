@@ -16,10 +16,11 @@ class AuthRepository(object):
             autorized = user.check_password(password)
 
             if not autorized:
-                return { 'error': 'Contraseña no válida' }, 401
+                return { 'msg': 'Contraseña no válida' }, 401
 
             access_token = create_access_token(identity=str(user.id))
             return { 
+                'success': True,
                 'user': UserValidator.from_orm(user).dict(), 
                 'access_token': access_token 
             }, 200

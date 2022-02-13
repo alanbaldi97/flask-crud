@@ -10,8 +10,10 @@ class TypeStatus(str, enum.Enum):
 
 class ManagerValidator(BaseModel):
     id: Optional[int]
+    img: str = None
     name: str
     last_name: str
+    email: str
     area_type_id: int
     status: TypeStatus = TypeStatus.Activo
     area_type: Optional[AreaTypeValidator]

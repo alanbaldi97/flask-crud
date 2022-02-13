@@ -1,12 +1,12 @@
 from flask import Flask
 from modules.managers.routes import managers_controller
 from modules.auth.routes import auth_controller
+from modules.area_types.routes import area_type_controller
 from database import db
 from config import Config
 from config.extensions import (jwt, bcrypt)
 from datetime import datetime, timezone, timedelta
 from flask_cors import CORS
-
 from flask_jwt_extended import get_jwt, create_access_token, get_jwt_identity, set_access_cookies
 
 
@@ -31,8 +31,8 @@ def register_refreshing_token(app):
 
 def register_entities(app, db):
     with app.app_context():
-        from modules.area_types.entities import AreaType
         from modules.managers.entities import Manager
+        from modules.area_types.entities import AreaType
         from modules.auth.entities import User
         db.create_all()
 
@@ -46,9 +46,11 @@ def create_app():
     db.init_app(app)
     jwt.init_app(app)
     bcrypt.init_app(app)
-    register_refreshing_token(app)
 
+    register_refreshing_token(app)
     register_entities(app,db)
+    
     app.register_blueprint(managers_controller)
     app.register_blueprint(auth_controller)
+    app.register_blueprint(area_type_controller)
     return app

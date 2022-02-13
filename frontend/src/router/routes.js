@@ -1,10 +1,32 @@
 
 const routes = [
   {
-    path: '/',
-    component: () => import('layouts/MainLayout.vue'),
+    path: "/",
+    redirect: {name: 'login'}
+  },
+  {
+    path: "/login",
+    component: () => import("pages/Login.vue"),
+    name: 'login',
+    meta: { auth: false }
+  },
+  {
+    path: '/managers',
+    component: () => import('layouts/MainLayout'),
+    meta: { auth:true },
     children: [
-      { path: '', component: () => import('pages/Index.vue') }
+      { 
+        path: '', 
+        component: () => import('pages/managers/Index.vue'), 
+        name: 'managers',
+        meta: { auth:true }
+      },
+      { 
+        path: '/managers/manager/:id?', 
+        component: () => import('pages/managers/AddEdit.vue'), 
+        name:'add-edit-manager',
+        meta: { auth:true }
+      }
     ]
   },
 

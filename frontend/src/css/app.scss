@@ -1,1 +1,20 @@
 // app global css in SCSS form
+
+.q-item.q-router-link--active, .q-item--active{
+    background-color: #d6d9db !important;
+    color: #344767 !important;
+
+}
+
+
+.background-color{
+    background-color: #172b4d;
+}
+
+.card-color{
+    background-color: #f7fafc;
+}
+
+.text-muted{
+    color: #8898aa !important;
+}

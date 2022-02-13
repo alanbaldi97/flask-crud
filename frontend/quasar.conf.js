@@ -25,6 +25,10 @@ module.exports = function (/* ctx */) {
     boot: [
       
       'axios',
+      'dialog',
+      'notify',
+      'server-error',
+      'cropper'
     ],
 
     // https://v1.quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
@@ -49,8 +53,11 @@ module.exports = function (/* ctx */) {
     // Full list of options: https://v1.quasar.dev/quasar-cli/quasar-conf-js#Property%3A-build
     build: {
       vueRouterMode: 'history', // available values: 'hash', 'history'
-      distDir: path.resolve('../','assets'),
-      htmlFilename:  '../templates/index.html',
+      env: {
+        VUE_APP_URL_API: 'http://127.0.0.1:5000/api/'
+      },
+      // distDir: path.resolve('../','assets'),
+      // htmlFilename:  '../templates/index.html',
       // transpile: false,
 
       // Add dependencies for transpiling with Babel (Array of string/regex)
@@ -84,7 +91,7 @@ module.exports = function (/* ctx */) {
     // https://v1.quasar.dev/quasar-cli/quasar-conf-js#Property%3A-framework
     framework: {
       iconSet: 'material-icons', // Quasar icon set
-      lang: 'en-us', // Quasar language pack
+      lang: 'es', // Quasar language pack
       config: {},
 
       // Possible values for "importStrategy":
@@ -100,7 +107,11 @@ module.exports = function (/* ctx */) {
       // directives: [],
 
       // Quasar plugins
-      plugins: []
+      plugins: [
+        'Notify',
+        'Loading',
+        'Dialog'
+      ]
     },
 
     // animations: 'all', // --- includes all animations

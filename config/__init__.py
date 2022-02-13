@@ -1,6 +1,11 @@
 from datetime import timedelta
 
 class Config:
+
+    UPLOAD_FOLDER = 'static/uploads'
+
+    STATIC_FOLDER = 'static'
+
     SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:@localhost:3306/test_flask'
     SQLALCHEMY_BINDS = {}
     SQLALCHEMY_TRACK_MODIFICATIONS = True
