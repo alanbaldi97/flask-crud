@@ -54,7 +54,7 @@ module.exports = function (/* ctx */) {
     build: {
       vueRouterMode: 'history', // available values: 'hash', 'history'
       env: {
-        VUE_APP_URL_API: 'http://127.0.0.1:5000/api/'
+        VUE_APP_URL_API: 'https://test-flask-crud.herokuapp.com/api/'
       },
       distDir: path.resolve('../','app/static'),
       ignorePublicPath: true,
