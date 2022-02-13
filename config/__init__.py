@@ -28,7 +28,7 @@ class ProductionConfig:
     STATIC_FOLDER = 'static'
 
     DEBUG = False
-    SQLALCHEMY_DATABASE_URI = config('DATABASE_URL', default='localhost')
+    SQLALCHEMY_DATABASE_URI = config('SQLALCHEMY_DATABASE', default='localhost')
     SQLALCHEMY_BINDS = {}
     SQLALCHEMY_TRACK_MODIFICATIONS = True
     SECRET_KEY = ''
