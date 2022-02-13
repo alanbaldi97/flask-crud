@@ -39,10 +39,11 @@ def register_entities(app, db):
 
 
 
-def create_app():
+def create_app(enviroment):
     app = Flask(__name__)
-    app.config.from_object(Config)
-    # CORS(app, resources={r"/api/*": {"origins": "*"}})
+
+    app.config.from_object(enviroment)
+    CORS(app, resources={r"/api/*": {"origins": "*"}})
     
     db.init_app(app)
     jwt.init_app(app)
