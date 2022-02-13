@@ -5,10 +5,10 @@ class Config:
     UPLOAD_FOLDER = 'uploads'
 
     STATIC_FOLDER = 'static'
+    # TEMPLATE_FOLDER = '../frontend/dist/spa'
+    # STATIC_URL_PATH = '/'
 
-    STATIC_URL_PATH = '/static'
-
-    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:@localhost:3306/test_flask'
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://postgres:root@localhost:5432/test_flask'
     SQLALCHEMY_BINDS = {}
     SQLALCHEMY_TRACK_MODIFICATIONS = True
     DEBUG = True

@@ -56,9 +56,10 @@ module.exports = function (/* ctx */) {
       env: {
         VUE_APP_URL_API: 'http://127.0.0.1:5000/api/'
       },
-      // distDir: path.resolve('../','app/static'),
+      distDir: path.resolve('../','app/static'),
+      ignorePublicPath: true,
       // publicPath: '/static',
-      // htmlFilename:  '../templates/index.html',
+      htmlFilename:  '../templates/index.html',
       // transpile: false,
 
       // Add dependencies for transpiling with Babel (Array of string/regex)
@@ -80,6 +81,8 @@ module.exports = function (/* ctx */) {
       chainWebpack (chain) {
         chain.plugin('eslint-webpack-plugin')
           .use(ESLintPlugin, [{ extensions: [ 'js', 'vue' ] }])
+
+        chain.output.publicPath('/static/');
       },
     },
     // Full list of options: https://v1.quasar.dev/quasar-cli/quasar-conf-js#Property%3A-devServer
