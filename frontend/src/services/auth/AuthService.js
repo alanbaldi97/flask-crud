@@ -22,8 +22,15 @@ export class AuthService extends BaseHttp{
         try{
             
             const token = localStorage.getItem('access_token');
+            
             if(!token) return false;
-            const { data } = await this.get('/auth/user');
+            
+            const { data } = await this.http.get('/auth/user',{
+                headers: {
+                    Accept: 'application/json',
+                    Authorization:`Bearer ${token}`
+                }
+            });
             const { user, access_token } = data;
             localStorage.setItem('access_token',access_token);
             Store.dispatch('auth/setUser', user);

@@ -8,8 +8,6 @@ export class BaseHttp{
     constructor(){
         this.http = api
         this.token = localStorage.getItem('access_token');
-        
-
     }
 
     async getToken(){

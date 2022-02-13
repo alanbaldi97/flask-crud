@@ -60,9 +60,11 @@ export default {
                 const { user, access_token } = response;
                 this.setUser(user);
                 localStorage.setItem('access_token',access_token);
+
+                console.log(access_token)
                 
 
-                this.$router.push('/managers');
+                this.$router.push({name: 'managers'});
                 
             } catch (error) {
                 this.$serverError(error);
