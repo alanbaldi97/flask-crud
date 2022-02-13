@@ -1,5 +1,4 @@
-app/static/
 __pycache__/
 
 
-uploads/
+uploads/*.png
