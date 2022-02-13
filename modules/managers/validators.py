@@ -21,4 +21,10 @@ class ManagerValidator(BaseModel):
         orm_mode = True
         error_msg_templates = {**required}
 
+
+
+class FilterValidator(BaseModel):
+    area_type_id: int = None
+    status: TypeStatus = None
+    search: str = None
     

@@ -6,14 +6,33 @@ from modules.managers.entities import Manager
 from modules.managers.validators import ManagerValidator
 from utils.messages import ROW_DELETED, ROW_INSERTED, ROW_NOT_DELETED, ROW_NOT_INSETED, ROW_NOT_UPDATED, ROW_UPDATED, SERVER_ERROR_500
 from werkzeug.utils import secure_filename
+from sqlalchemy import or_
 
 class ManagerRepository(object):
 
 
-    def get_all(self):
+    def get_all(self, params: dict):
         try:
-            records = Manager.query.all()
-            ManagerValidator
+            records = Manager.query
+
+            area_type_id = params.get('area_type_id')
+            status = params.get('status')
+            search = params.get('search')
+
+
+            if area_type_id is not None:
+                records = records.filter( Manager.area_type_id == area_type_id )
+            
+            if status is not None:
+                records = records.filter( Manager.status == status )
+
+            if search is not None and search != "":
+                records = records.filter( or_(Manager.name.ilike(search), Manager.last_name.ilike(search) ))
+
+
+            records = records.all()
+
+
             return [ ManagerValidator.from_orm(record).dict() for record in records ], 200
         except Exception as e:
             print(str(e))

@@ -8,8 +8,8 @@ export default class ManagerService extends BaseHttp{
         super();
     }
 
-    async getAll(){
-        const { data } = await this.get('managers');
+    async getAll( params = {} ){
+        const { data } = await this.post('managers', params);
         return data;
     }
 
@@ -20,7 +20,7 @@ export default class ManagerService extends BaseHttp{
 
 
     async insert(payload){
-        const { data } = await this.post('managers',payload);
+        const { data } = await this.post('managers/store',payload);
         return data;
     }
 

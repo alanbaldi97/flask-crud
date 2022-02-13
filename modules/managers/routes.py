@@ -1,9 +1,9 @@
 import os
 from flask import Blueprint, jsonify, request, send_file
 
-from flask_jwt_extended import jwt_required, current_user
+from flask_jwt_extended import jwt_required
 from pydantic import ValidationError
-from modules.managers.validators import ManagerValidator
+from modules.managers.validators import ManagerValidator, FilterValidator
 from modules.managers.repository import ManagerRepository
 from flask_pydantic import validate
 
@@ -13,14 +13,16 @@ managers_controller = Blueprint('ManagersController', __name__,url_prefix='/api'
 
 manager_repository = ManagerRepository()
 
-@managers_controller.route('managers',methods=['GET'])
+@managers_controller.route('managers',methods=['POST'])
 @jwt_required()
-def index():
-    response, status = manager_repository.get_all()
+@validate()
+def index(body: FilterValidator):
+    params = body.dict()
+    response, status = manager_repository.get_all(params)
     return jsonify(response), status
 
 
-@managers_controller.route('managers',methods=['POST'])
+@managers_controller.route('managers/store',methods=['POST'])
 @jwt_required()
 def save_manager():
     body = request.form

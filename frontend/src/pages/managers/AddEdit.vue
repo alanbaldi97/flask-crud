@@ -38,7 +38,7 @@
                                             v-model="area_type_id" 
                                             dense outlined 
                                             :options="areaTypes" 
-                                            label="Area" 
+                                            label="Tipo de Area" 
                                             :rules="[rules.required]"
                                             emit-value
                                             map-options
