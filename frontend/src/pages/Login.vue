@@ -11,9 +11,18 @@
                         </q-card-section>
                         <q-card-section class="card-color">
                             <q-form ref="form" @submit.prevent="login">
-                                <q-input dense outlined v-model="username" :rules="rules" label="Usuario"></q-input>
-                                <q-input dense type="password" outlined v-model="password" :rules="rules" label="Contraseña" @keypress.enter="login"></q-input>
-                                <q-btn class="full-width" color="indigo-6" rounded label="Iniciar Sesión"  @click="login" />
+                                <q-input dense outlined v-model="username" :rules="rules" label="Usuario">
+                                    <template v-slot:prepend>
+                                        <q-icon name="person" />
+                                    </template>
+                                </q-input>
+                                    
+                                <q-input dense type="password" outlined v-model="password" :rules="rules" label="Contraseña" @keypress.enter="login">
+                                    <template v-slot:prepend>
+                                        <q-icon name="lock" />
+                                    </template>
+                                </q-input>
+                                <q-btn :loading="loading" class="full-width" color="indigo-6" rounded label="Iniciar Sesión"  @click="login" />
                             </q-form>
                         </q-card-section>
                     </q-card>
@@ -38,7 +47,8 @@ export default {
         return {
             username:null,
             password: null,
-            rules:[required]
+            rules:[required],
+            loading: false,
         }
     },
     methods:{
@@ -49,19 +59,17 @@ export default {
         async login(){
 
             try {
-                this.$q.loading.show();
+                
                 const valid = await this.$refs.form.validate();
                 if(!valid) return;
 
-
+                this.loading = true;
                 const response = await authService.login(this.username, this.password);
                 if(!response.success) return this.$notify(response.msg,'error');
 
                 const { user, access_token } = response;
                 this.setUser(user);
                 localStorage.setItem('access_token',access_token);
-
-                console.log(access_token)
                 
 
                 this.$router.push({name: 'managers'});
@@ -69,7 +77,7 @@ export default {
             } catch (error) {
                 this.$serverError(error);
             }finally {
-                this.$q.loading.hide();
+                this.loading = false;
             }
             
         }

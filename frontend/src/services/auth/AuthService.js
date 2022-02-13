@@ -16,6 +16,11 @@ export class AuthService extends BaseHttp{
         return data;
     }
 
+    async logout(){
+        const { data } = await this.http.delete(`auth/logout`);
+        return data;
+    }
+
 
     async isAutenticate(){
 

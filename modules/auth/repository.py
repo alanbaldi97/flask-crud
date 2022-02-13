@@ -1,8 +1,9 @@
-from modules.auth.entities import User
+from flask import jsonify
+from modules.auth.entities import TokenBlocklist, User
 from flask_jwt_extended import create_access_token
 from modules.auth.validators import UserValidator
-
 from utils.messages import SERVER_ERROR_500
+from datetime import (datetime, timezone)
 
 class AuthRepository(object):
 
@@ -27,5 +28,13 @@ class AuthRepository(object):
 
         except Exception as e:
             return { 'msg': SERVER_ERROR_500 }, 500
+    
+
+    def logout(self, jti):
+        
+        now = datetime.now(timezone.utc)
+        token_block_list = TokenBlocklist(jti=jti, created_at=now)
+        token_block_list.save()
+        return jsonify({'success': True, 'msg': "JWT revoked"}), 200
         
         

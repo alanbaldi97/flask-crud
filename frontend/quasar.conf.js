@@ -56,7 +56,8 @@ module.exports = function (/* ctx */) {
       env: {
         VUE_APP_URL_API: 'http://127.0.0.1:5000/api/'
       },
-      // distDir: path.resolve('../','assets'),
+      // distDir: path.resolve('../','app/static'),
+      // publicPath: '/static',
       // htmlFilename:  '../templates/index.html',
       // transpile: false,
 

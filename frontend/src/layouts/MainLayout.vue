@@ -12,10 +12,24 @@
         />
 
         <q-toolbar-title>
-          Quasar App
+         
         </q-toolbar-title>
 
-        <div>{{ user.username }}</div>
+        <div>
+          <q-btn size="md" flat dense class="q-ml-sm bg-transparent text-white q-mr-sm" >
+            {{ user.username.toLowerCase() }}
+            <q-menu >
+              <q-list >
+                <q-item clickable @click="logout">
+                  <q-item-section >
+                    Cerrar Sesión
+                  </q-item-section>
+                </q-item>
+              </q-list>
+            </q-menu>
+          </q-btn>
+          
+        </div>
       </q-toolbar>
     </q-header>
 
@@ -57,6 +71,9 @@
 import EssentialLink from 'components/EssentialLink.vue'
 import { mapState } from 'vuex';
 import EventBus from 'app/src/common/event-bus';
+import { AuthService } from '../services/auth/AuthService';
+
+const authService = new AuthService();
 
 const linksData = [
   {
@@ -133,6 +150,29 @@ export default {
 
     ...mapState('auth',['user'])
 
+  },
+  methods:{
+    async logout(){
+
+      try{
+
+        this.$q.loading.show();
+
+        const response = await authService.logout();
+
+        if(!response.success){
+          return this.$notify(response.msg,'error');
+        }
+
+        this.$router.push('/');
+
+      }catch(error){
+        this.$serverError(error);
+      }finally{
+        this.$q.loading.hide();
+      }
+
+    }
   }
 }
 </script>

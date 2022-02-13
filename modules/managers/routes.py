@@ -3,6 +3,7 @@ from flask import Blueprint, jsonify, request, send_file
 
 from flask_jwt_extended import jwt_required
 from pydantic import ValidationError
+from config import Config
 from modules.managers.validators import ManagerValidator, FilterValidator
 from modules.managers.repository import ManagerRepository
 from flask_pydantic import validate
@@ -87,14 +88,12 @@ def get_by_id( id: int  ):
 
 
 @managers_controller.route('managers/get-image',methods=['GET'])
-# @jwt_required()
-@validate()
 def get_image():
     try: 
 
         filename = request.args.get('filename')
 
-        abs_path = os.path.abspath(f'static/uploads/{filename}')
+        abs_path = os.path.abspath(f'{Config.UPLOAD_FOLDER}/{filename}')
 
         return send_file(abs_path), 200
         # return redirect(url_for('static', filename=f'uploads/{filename}' ), 303)

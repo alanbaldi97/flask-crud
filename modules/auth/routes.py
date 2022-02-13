@@ -3,6 +3,7 @@ from modules.auth.validators import UserValidator
 from modules.auth.repository import AuthRepository
 from flask_pydantic import validate
 from flask_jwt_extended import  (
+    get_jwt,
     jwt_required,
     get_jwt_identity,
     current_user,
@@ -32,6 +33,17 @@ def get_user():
         'access_token' : access_token
     }), 200
      
+
+
+@auth_controller.route('logout',methods=['DELETE'])
+@jwt_required()
+def logout():
+    jti = get_jwt()["jti"]
+    return repository.logout(jti)
+
+    
+     
+    
     
 
 

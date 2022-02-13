@@ -1,6 +1,5 @@
-assets/
-
-static/uploads/
-
-
+app/static/
 __pycache__/
+
+
+uploads/
