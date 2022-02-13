@@ -1,5 +1,5 @@
 
-# from decouple import config as config_decouple
+
 from app import create_app
 
 

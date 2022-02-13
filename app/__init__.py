@@ -4,12 +4,12 @@ from modules.auth.routes import auth_controller
 from modules.area_types.routes import area_type_controller
 from modules.spa.routes import spa_controller
 from database import db
-from config import ProductionConfig
+from config import Config, ProductionConfig
 from config.extensions import (jwt, bcrypt)
 from datetime import datetime, timezone, timedelta
 from flask_cors import CORS
 from flask_jwt_extended import get_jwt, create_access_token, get_jwt_identity, set_access_cookies
-
+from decouple import config as config_decouple
 
 def register_refreshing_token(app):
     #registro callback despues de la petición para actualizar el tiempo de expiración del token
@@ -39,10 +39,15 @@ def register_entities(app, db):
 
 
 
-def create_app(enviroment):
+def create_app():
     app = Flask(__name__)
 
-    app.config.from_object(ProductionConfig)
+    app.config.from_object(Config)
+
+    if config_decouple('PRODUCTION', default=False):
+        app.config.from_object(ProductionConfig)
+
+    
     CORS(app, resources={r"/api/*": {"origins": "*"}})
     
     db.init_app(app)
