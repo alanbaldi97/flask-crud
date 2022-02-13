@@ -4,7 +4,7 @@ from modules.auth.routes import auth_controller
 from modules.area_types.routes import area_type_controller
 from modules.spa.routes import spa_controller
 from database import db
-from config import Config
+from config import ProductionConfig
 from config.extensions import (jwt, bcrypt)
 from datetime import datetime, timezone, timedelta
 from flask_cors import CORS
@@ -42,7 +42,7 @@ def register_entities(app, db):
 def create_app(enviroment):
     app = Flask(__name__)
 
-    app.config.from_object(enviroment)
+    app.config.from_object(ProductionConfig)
     CORS(app, resources={r"/api/*": {"origins": "*"}})
     
     db.init_app(app)

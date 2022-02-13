@@ -1,4 +1,5 @@
 from datetime import timedelta
+from pickle import FALSE
 from decouple import config
 class Config:
 
@@ -29,8 +30,7 @@ class ProductionConfig:
     DEBUG = False
     SQLALCHEMY_DATABASE_URI = config('DATABASE_URL', default='localhost')
     SQLALCHEMY_BINDS = {}
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
-    DEBUG = True
+    SQLALCHEMY_TRACK_MODIFICATIONS = True
     SECRET_KEY = ''
 
     #JWT
